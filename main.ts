@@ -8,9 +8,13 @@ const LINE =
   "I can catch bullets with my bare hands — but only Nerf darts.";
 
 // Fail loudly instead of writing an entry the gate would refuse.
+// The gate also refuses a line that is only whitespace, so check that too.
 const lineLength = [...LINE].length;
 if (lineLength < 1 || lineLength > 140) {
   throw new Error(`superpower line must be 1-140 characters, got ${lineLength}`);
+}
+if (!LINE.trim()) {
+  throw new Error("superpower line must not be only whitespace");
 }
 
 const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? "out";
